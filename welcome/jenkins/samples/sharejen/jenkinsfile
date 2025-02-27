@@ -15,10 +15,11 @@ pipeline {
                             script {
                                 echo "Current Branch Name: ${env.BRANCH_NAME}"
                             }
-                        }
+                        
                         def get_user_name = input message: 'Please enter your name', parameters: [string(defaultValue: 'Jenkins User', description: 'Please enter your name', name: 'USER_NAME')]
                        sh ''' echo "Hello ${get_user_name}" '''
                     }
+            }
         stage('Check if Gal is a good brother') {
             steps {
                 script {
