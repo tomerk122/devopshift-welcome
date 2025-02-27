@@ -15,18 +15,21 @@ pipeline {
                     // Ask if Gal is a good brother
                     def isGoodBrother = input(message: 'Is Gal a good brother?', parameters: [choice(name: 'Yes or No', choices: ['Yes', 'No'], description: 'Please confirm if Gal is a good brother.')])
 
-                    // If the answer is 'No', proceed to the next stage
+                    // If the answer is 'No', proceed to the next stage, else stop
                     if (isGoodBrother == 'No') {
-                        currentBuild.result = 'SUCCESS' // Continue pipeline and mark successful stage
-                        echo 'You are the king!' // Print message
+                        echo 'You are the king!' // Print the message
                     } else {
-                        echo 'Gal is a good brother!'
+                        currentBuild.result = 'FAILURE' // Fail the build if the answer is 'Yes'
+                        error('Gal is a good brother, pipeline stopped.') // Stop the pipeline with a failure message
                     }
                 }
             }
         }
 
         stage('Build') {
+            when {
+                expression { return currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             steps {
                 script {
                     // Call the mock buildApp function
@@ -36,6 +39,9 @@ pipeline {
         }
 
         stage('Deploy') {
+            when {
+                expression { return currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             steps {
                 script {
                     // If APP_DEBUG is set to 'true' set env.BRANCH_NAME to DEBUG_BRANCH
@@ -47,6 +53,9 @@ pipeline {
         }
 
         stage('CLEAN') {
+            when {
+                expression { return currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             steps {
                 script {
                     // Ask the user if they want to proceed with the cleanup
