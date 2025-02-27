@@ -1,15 +1,16 @@
 pipeline {
     agent any
     stages {
-        stage('Stage Name') {
+        stage('Stage 1 test') {
             steps {
-                // Commands or scripts to executefff
+                echo "Fuck this Jenkins" > fuckths.txt
+                 archiveArtifacts artifacts: 'path/to/file_or_pattern', allowEmptyArchive: true
             }
         }
     }
     post {
         always {
-            // Actions to take regardless of pipeline success or failure
+            echo "Done"
         }
     }
 }
