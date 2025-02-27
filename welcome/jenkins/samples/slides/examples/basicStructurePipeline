@@ -3,12 +3,11 @@ pipeline {
     stages {
         stage('Stage 1 test') {
             steps {
-                script
-                {
-              sh  "echo "Fuck this Jenkins" > fuckths.txt"
-                        }
-                 archiveArtifacts artifacts: 'fuckths.txt', allowEmptyArchive: true
-                    
+                script {
+                    // השתמש בגרשים כפולים כדי לעטוף את המילה שכוללת רווחים
+                    sh  'echo "Fuck this Jenkins" > fuckths.txt'
+                }
+                archiveArtifacts artifacts: 'fuckths.txt', allowEmptyArchive: true
             }
         }
     }
