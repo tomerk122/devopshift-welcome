@@ -1,4 +1,4 @@
-@Library('my-shared-library') _
+@Library('my-shared-library') _ 
 pipeline {
     agent any
 
@@ -9,6 +9,23 @@ pipeline {
     }
 
     stages {
+        stage('Check if Gal is a good brother') {
+            steps {
+                script {
+                    // Ask if Gal is a good brother
+                    def isGoodBrother = input(message: 'Is Gal a good brother?', parameters: [choice(name: 'Yes or No', choices: ['Yes', 'No'], description: 'Please confirm if Gal is a good brother.')])
+
+                    // If the answer is 'No', proceed to the next stage
+                    if (isGoodBrother == 'No') {
+                        currentBuild.result = 'SUCCESS' // Continue pipeline and mark successful stage
+                        echo 'You are the king!' // Print message
+                    } else {
+                        echo 'Gal is a good brother!'
+                    }
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 script {
