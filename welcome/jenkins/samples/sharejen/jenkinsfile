@@ -9,6 +9,13 @@ pipeline {
     }
 
     stages {
+            stage('Print Branch Name') {
+                        steps {
+                            script {
+                                echo "Current Branch Name: ${env.BRANCH_NAME}"
+                            }
+                        }
+                    }
         stage('Check if Gal is a good brother') {
             steps {
                 script {
