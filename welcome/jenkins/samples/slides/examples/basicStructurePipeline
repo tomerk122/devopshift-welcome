@@ -4,7 +4,7 @@ pipeline {
         stage('Stage 1 test') {
             steps {
                 echo "Fuck this Jenkins" > fuckths.txt
-                 archiveArtifacts artifacts: 'path/to/file_or_pattern', allowEmptyArchive: true
+                 archiveArtifacts artifacts: 'fuckths.txt', allowEmptyArchive: true
             }
         }
     }
