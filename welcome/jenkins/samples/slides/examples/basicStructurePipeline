@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     // השתמש בגרשים כפולים כדי לעטוף את המילה שכוללת רווחים
-                    sh  'echo "Fuck this Jenkins" > fuckths.txt'
+                    sh  'echo "Fuck this Jdsdenkins" > fuckths.txt'
                 }
                 archiveArtifacts artifacts: 'fuckths.txt', allowEmptyArchive: true
             }
