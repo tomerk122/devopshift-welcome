@@ -9,15 +9,16 @@ Lint: Mock linting (e.g., echo "Running Python linting...").
 Security Test: Mock security analysis (e.g., echo "Running security tests...").
 Deploy (Optional): Add a user input step to determine if deployment should proceed. If yes, mock a deployment step (e.g., echo "Deploying to production...").
 
-
+runStage(stageName, command): Takes a stage name and a command to run, printing the stage name and executing the command.
+parallelSteps(): Defines the parallel lint and security testing steps.
 '''
-node{ 
-    stage('Clone'){
-        echo 'Cloning the repository'
+def runStage(stageName,command){  
+    stage('run-stage'){ 
+    echo "Im running ${stageName} stage"
+    echo "Im running ${command} command"
     }
-    stage('Build'){
-        echo 'Building Python project...'
-    }
+}
+def parallelSteps(){
     stage('Parallel Tasks'){
         parallel(
             'Lint':{
@@ -28,8 +29,24 @@ node{
             }
         )
     }
+}
+node{ 
+    stage('Clone'){
+        echo 'Cloning the repository'
+    }
+    stage('Build'){
+        echo 'Building Python project...'
+    }
+    script{
+        parallelSteps()
+    }
     stage('Deploy'){
         input 'Do you want to deploy?'
         echo 'Deploying to production...'
+
+        script{
+            runStage('clone','echo "Cloning the repository"')
+        }
+
     }
 }
