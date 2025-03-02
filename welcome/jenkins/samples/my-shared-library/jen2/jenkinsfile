@@ -18,7 +18,7 @@ def runStage(stageName,command){
     echo "Im running ${command} command"
     }
 }
-def runStagee = { stageName, command ->
+def runStage = { stageName, command ->
     stage(stageName) {   // יוצר את השלב עם השם שנתנו
         echo "Starting stage: ${stageName}"
         sh command       // מריץ את הפקודה
@@ -37,7 +37,6 @@ def parallelSteps(){
     }
 }
 node{ 
-    runStagee('Clone', 'echo "Cloning repository..."')
     stage('Clone'){
         echo 'Cloning the repository'
     }
@@ -47,13 +46,17 @@ node{
     script{
         parallelSteps()
     }
-    stage('Deploy'){
-        input 'Do you want to deploy?'
-        echo 'Deploying to production...'
-
-        script{
-            runStage('clone','echo "Cloning the repository"')
+   stage('Deploy') {
+        def userInput = input message: 'Do you want to deploy?', parameters: [choice(name: 'Deploy?', choices: ['Yes', 'No'], description: 'Choose whether to deploy')]
+        
+        // אם התשובה היא "Yes", תמשיך לפעולה של פריסה
+        if (userInput == 'Yes') {
+            echo 'Deploying to production...'
+            script {
+                runStage('Deploy', 'echo "Deploying to production..."')
+            }
+        } else {
+            echo 'Deployment skipped.'
         }
-
     }
 }
