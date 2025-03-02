@@ -18,6 +18,12 @@ def runStage(stageName,command){
     echo "Im running ${command} command"
     }
 }
+def runStagee = { stageName, command ->
+    stage(stageName) {   // יוצר את השלב עם השם שנתנו
+        echo "Starting stage: ${stageName}"
+        sh command       // מריץ את הפקודה
+    }
+}
 def parallelSteps(){
     stage('Parallel Tasks'){
         parallel(
@@ -31,6 +37,7 @@ def parallelSteps(){
     }
 }
 node{ 
+    runStagee('Clone', 'echo "Cloning repository..."')
     stage('Clone'){
         echo 'Cloning the repository'
     }
