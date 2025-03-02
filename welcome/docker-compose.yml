@@ -8,6 +8,8 @@ services:
             - '50000:50000'
         networks: 
             - jb
+        volumes:
+             - jenkins_home:/var/jenkins_home
     jenkins-slave:
         build: ./jenkins/slave
         image: jenkins-jb/slave:1.0
@@ -29,3 +31,7 @@ services:
 
 networks: 
   jb:
+
+
+volumes:
+  jenkins_home:  

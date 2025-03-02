@@ -1,0 +1,35 @@
+''''
+ab Instructions
+1. Setup the Pipeline Structure
+Create a Scripted Pipeline that includes the following stages:
+Clone: Fetch the repository from GitHub (mock this step with a simple echo command).
+Build: Mock the build step (e.g., echo "Building Python project...").
+Parallel Tasks:
+Lint: Mock linting (e.g., echo "Running Python linting...").
+Security Test: Mock security analysis (e.g., echo "Running security tests...").
+Deploy (Optional): Add a user input step to determine if deployment should proceed. If yes, mock a deployment step (e.g., echo "Deploying to production...").
+
+
+'''
+node{ 
+    stage('Clone'){
+        echo 'Cloning the repository'
+    }
+    stage('Build'){
+        echo 'Building Python project...'
+    }
+    stage('Parallel Tasks'){
+        parallel(
+            'Lint':{
+                echo 'Running Python linting...'
+            },
+            'Security Test':{
+                echo 'Running security tests...'
+            }
+        )
+    }
+    stage('Deploy'){
+        input 'Do you want to deploy?'
+        echo 'Deploying to production...'
+    }
+}
