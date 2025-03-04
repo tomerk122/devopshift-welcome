@@ -1,4 +1,5 @@
 I wrote one Jenkins File that good for the Be and the FE
+But I still duplcated the code for the be folder and it still works.
 
 ![image](https://github.com/user-attachments/assets/74aac35d-d57d-435e-bfb3-6b1e2a5d8a70)
 
