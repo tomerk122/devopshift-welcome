@@ -69,12 +69,21 @@ pipeline {
                     }
                 }
             } // end of build docker image
-    stage('Run Tests in Container'){
-        steps{
-           sh 'docker images'
-            sh 'docker run --rm ${DOCKER_REGISTRY}/${REPO_NAME}:${BUILD_NUMBER} pytest tests/'
+  stage('Run Tests in Container') {
+    steps {
+        script {
+            if (env.REPO_NAME == 'fe-exam') {
+                dir('exam-code/docker/fe') {
+                    sh 'docker run --rm ${DOCKER_REGISTRY}/${REPO_NAME}:${BUILD_NUMBER} pytest /app/src/tests/'
+                }
+            } else {
+                dir('exam-code/docker/be') {
+                    sh 'docker run --rm ${DOCKER_REGISTRY}/${REPO_NAME}:${BUILD_NUMBER} pytest /app/src/tests/'
+                }
+            }
         }
     }
+} // end of tests
     stage('Install Docker Compose') {
             steps {
                 script {
