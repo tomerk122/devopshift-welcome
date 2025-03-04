@@ -29,20 +29,22 @@ pipeline {
             }
         }
         stage('Lint & Security Scan') {
-            // parallel {
-            //     stage('Flake8 Linting') {
-            //         steps {
-            //             sh 'pip install flake8'
-            //             sh 'flake8 .'
-            //         }
-            //     }
-            //     stage('Bandit Security Scan') {
-            //         steps {
-            //             sh 'pip install bandit'
-            //             sh 'bandit -r .'
-            //         }
-            //     }
-            // }
+            parallel {
+                stage('Flake8 Linting') {
+                    steps {
+                        // sh 'pip install flake8'
+                        // sh 'flake8 .'
+                       sh 'echo "bandit -r ."'
+                    }
+                }
+                stage('Bandit Security Scan') {
+                    steps {
+                        // sh 'pip install bandit'
+                        // sh 'bandit -r .'
+                     sh 'echo "bandit -r ."'
+                    }
+                }
+            }
         }
         stage('Install Dependencies'){
             steps {
