@@ -57,6 +57,7 @@ pipeline {
                 }
             } // end of install dependencies
         stage('Build Docker Image'){
+            agent{label 'docker'}
                 steps {
                     script {
                         if (env.REPO_NAME == 'fe-exam') {
