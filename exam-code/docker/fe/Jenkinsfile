@@ -12,12 +12,27 @@ pipeline {
         
     }
     stages {
-        stage('Clone Repository') {
+        stage('Clone Repository') { // clone the repository
             steps {
                 git branch: 'workshop/argo-jenkins-exam', url: 'https://github.com/tomerk122/devopshift-welcome.git'
             }
         }
+        stage('Lint & Security Scan') {
+            parallel {
+                stage('Flake8 Linting') {
+                    steps {
+                        sh 'pip install flake8'
+                        sh 'flake8 .'
+                    }
+                }
+                stage('Bandit Security Scan') {
+                    steps {
+                        sh 'pip install bandit'
+                        sh 'bandit -r .'
+                    }
+                }
+            }
+        }
+
     }
 }
-        
-        
