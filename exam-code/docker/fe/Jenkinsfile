@@ -1,12 +1,4 @@
 /*
-Install Dependencies
-Create a stage named Install Dependencies.
-Inside it, run the command:
-
-
- pip install -r requirements.txt # locate the file for the fe / be
-
-
  */
 
 pipeline {
@@ -46,12 +38,15 @@ pipeline {
                 }
             }
         }
-        stage('Install Dependencies'){
-            steps {
-                sh 'ls'
-                sh 'pip install -r requirements.txt'
-            }
+        stage('Install Dependencies') {
+      steps {
+         dir('exam-code/docker/be') { 
+            sh 'pwd'
+            sh 'pip install -r requirements.txt'
         }
+    }
+}
+
 
     }
 }
