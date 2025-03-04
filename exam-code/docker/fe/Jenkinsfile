@@ -43,11 +43,11 @@ pipeline {
                 steps {
                     script {
                         if (env.REPO_NAME == 'fe-exam') {
-                            // dir('exam-code/docker/fe') {
-                            //     sh 'pwd'
-                            //     sh 'pip install -r requirements.txt'
-                            // }
-                            sh 'docker --version'
+                            dir('exam-code/docker/fe') {
+                                sh 'pwd'
+                                sh 'pip install -r requirements.txt'
+                            }
+                           
 
                         } else {
                             dir('exam-code/docker/be') { 
@@ -64,8 +64,9 @@ pipeline {
             script {
                 if (env.REPO_NAME == 'fe-exam') {
                     dir('exam-code/docker/fe') {
-                        sh 'docker build -t ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} .'
-                        sh 'docker tag ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${REPO_NAME}:latest'
+                        // sh 'docker build -t ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} .'
+                        // sh 'docker tag ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${REPO_NAME}:latest'
+                         sh 'docker --version'
                     }
                 } else {
                     dir('exam-code/docker/be') {
