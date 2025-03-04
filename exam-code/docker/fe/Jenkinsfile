@@ -43,10 +43,12 @@ pipeline {
                 steps {
                     script {
                         if (env.REPO_NAME == 'fe-exam') {
-                            dir('exam-code/docker/fe') {
-                                sh 'pwd'
-                                sh 'pip install -r requirements.txt'
-                            }
+                            // dir('exam-code/docker/fe') {
+                            //     sh 'pwd'
+                            //     sh 'pip install -r requirements.txt'
+                            // }
+                            sh 'docker --version'
+
                         } else {
                             dir('exam-code/docker/be') { 
                                 sh 'pwd'
