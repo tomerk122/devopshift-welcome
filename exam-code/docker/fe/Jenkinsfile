@@ -67,6 +67,23 @@ pipeline {
                     }
                 }
             } // end of build docker image
+    stage('Install Docker Compose') {
+            steps {
+                script {
+                    // Checking if docker-compose is already installed
+                    sh '''
+                    if ! command -v docker-compose &> /dev/null
+                    then
+                        echo "Docker Compose could not be found, installing..."
+                        sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                        sudo chmod +x /usr/local/bin/docker-compose
+                    else
+                        echo "Docker Compose is already installed."
+                    fi
+                    '''
+                }
+            }
+        } // end of Install Docker Compose
     stage('Run Tests in Container'){
         steps{
            sh 'docker images'
