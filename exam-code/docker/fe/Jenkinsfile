@@ -1,10 +1,16 @@
 /*
+Step 5: Run Tests in a Container
+Create a stage named Run Tests in Container.
+Inside it, run the following command (note that when you’ve built the image on the previous step, you also copied the tests folder)
 
  */
 
 pipeline {
-    agent any
-        
+    agent {
+        docker {
+            image 'python:3.10'
+        }
+    }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-creds')
         DOCKER_REGISTRY = 'tomertest123'
@@ -23,15 +29,15 @@ pipeline {
                 stage('Flake8 Linting') {
                     steps {
                         // sh 'pip install flake8'
-                        // sh 'flake8 .'
-                       sh 'echo "bandit -r ."'
+                         sh 'flake8 . || true'
+                     
                     }
                 }
                 stage('Bandit Security Scan') {
                     steps {
                         // sh 'pip install bandit'
-                        // sh 'bandit -r .'
-                     sh 'echo "bandit -r ."'
+                        sh 'bandit -r . || true'
+
                     }
                 }
             }
@@ -72,8 +78,7 @@ pipeline {
             } // end of build docker image
     stage('Run Tests in Container'){
         steps{
-            docker images
-             sh "docker run --rm ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} pytest tests/"
+            sh 'docker run --rm ${DOCKER_REGISTRY}/your-app:${BUILD_NUMBER} pytest tests/'
         }
 
     }
