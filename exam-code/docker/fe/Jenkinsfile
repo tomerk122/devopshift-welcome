@@ -69,7 +69,7 @@ pipeline {
             } // end of build docker image
     stage('Run Tests in Container'){
         steps{
-            docker images
+           sh 'docker images'
             sh 'docker run --rm ${DOCKER_REGISTRY}/your-app:${BUILD_NUMBER} pytest tests/'
         }
 
