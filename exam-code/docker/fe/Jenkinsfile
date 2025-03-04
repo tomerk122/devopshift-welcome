@@ -38,16 +38,20 @@ pipeline {
                 }
             }
         }
-        stage('Install Dependencies') {
-      steps {
-         dir('exam-code/docker/be') { 
-            sh 'pwd'
-            sh 'pip install -r requirements.txt'
+    stage('Install Dependencies') { // install depend by repo name 
+        steps {
+            if(env.REPO_NAME == 'fe-exam') {
+                dir('exam-code/docker/fe') {
+                    sh 'pwd'
+                    sh 'npm install'
+                }
+            } else {
+                    dir('exam-code/docker/be') { 
+                        sh 'pwd'
+                        sh 'pip install -r requirements.txt'
+                    }
+               }
         }
-    }
-}
-
-
     }
 }
         
