@@ -1,4 +1,5 @@
 /*
+
  */
 
 pipeline {
@@ -9,7 +10,7 @@ pipeline {
     }
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-creds')
-        DOCKER_REGISTRY = 'yanivomc'
+        DOCKER_REGISTRY = 'tomertest123'
         REPO_NAME = 'fe-exam'  // Change to 'be-exam' for backend pipeline
         IMAGE_TAG = "${env.BUILD_NUMBER}"
         
@@ -19,7 +20,7 @@ pipeline {
             steps {
                 git branch: 'workshop/argo-jenkins-exam', url: 'https://github.com/tomerk122/devopshift-welcome.git'
             }
-        }
+        } // end of clone repository
         stage('Lint & Security Scan') {
             parallel {
                 stage('Flake8 Linting') {
@@ -37,7 +38,7 @@ pipeline {
                     }
                 }
             }
-        }
+        } // end of lint & security scan
     stage('Install Dependencies') { // Install dependencies based on repo name
             steps {
                 script {
@@ -51,6 +52,22 @@ pipeline {
                             sh 'pwd'
                             sh 'pip install -r requirements.txt'
                         }
+                    }
+                }
+            }
+        } // end of install dependencies
+        stage('Build Docker Image'){
+        steps {
+            script {
+                if (env.REPO_NAME == 'fe-exam') {
+                    dir('exam-code/docker/fe') {
+                        sh 'docker build -t ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} .'
+                        sh 'docker tag ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${REPO_NAME}:latest'
+                    }
+                } else {
+                    dir('exam-code/docker/be') {
+                        sh 'docker build -t ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} .'
+                        sh 'docker tag ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${REPO_NAME}:latest'
                     }
                 }
             }
