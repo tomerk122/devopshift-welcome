@@ -44,7 +44,7 @@ pipeline {
                     if (env.REPO_NAME == 'fe-exam') {
                         dir('exam-code/docker/fe') {
                             sh 'pwd'
-                            sh 'npm install'
+                            sh 'pip install -r requirements.txt'
                         }
                     } else {
                         dir('exam-code/docker/be') { 
