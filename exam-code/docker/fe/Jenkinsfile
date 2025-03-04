@@ -1,16 +1,7 @@
-/*
-Step 5: Run Tests in a Container
-Create a stage named Run Tests in Container.
-Inside it, run the following command (note that when you’ve built the image on the previous step, you also copied the tests folder)
 
- */
 
 pipeline {
-    agent {
-        docker {
-            image 'python:3.10'
-        }
-    }
+    agent any
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-creds')
         DOCKER_REGISTRY = 'tomertest123'
