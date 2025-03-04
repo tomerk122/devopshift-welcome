@@ -74,12 +74,12 @@ pipeline {
         script {
             if (env.REPO_NAME == 'fe-exam') {
                 dir('exam-code/docker/fe/src') {
-                    sh 'docker run --rm ${DOCKER_REGISTRY}/${REPO_NAME}:${BUILD_NUMBER} pytest src/tests/'
+                    sh 'docker run --rm ${DOCKER_REGISTRY}/${REPO_NAME}:${BUILD_NUMBER} pytest /tests/'
                 }
             } else {
                 dir('exam-code/docker/be/src') {
                     sh 'ls'
-                    sh 'docker run --rm ${DOCKER_REGISTRY}/${REPO_NAME}:${BUILD_NUMBER} pytest src/tests/'
+                    sh 'docker run --rm ${DOCKER_REGISTRY}/${REPO_NAME}:${BUILD_NUMBER} pytest /tests/'
                 }
             }
         }
