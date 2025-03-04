@@ -10,4 +10,6 @@ all the deployment are good
 after chaning the replica to 4 
 ![image](https://github.com/user-attachments/assets/c105b838-1590-4268-9c22-3fe8fbf26139)
 
+![image](https://github.com/user-attachments/assets/9c070fd6-3122-4b3e-80f4-066131b1aed8)
+
 it works!
