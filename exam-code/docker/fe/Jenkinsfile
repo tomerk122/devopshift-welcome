@@ -3,11 +3,8 @@
  */
 
 pipeline {
-    agent {
-        docker {
-            image 'python:3.10'
-        }
-    }
+    agent any
+        
     environment {
         DOCKERHUB_CREDENTIALS = credentials('docker-hub-creds')
         DOCKER_REGISTRY = 'tomertest123'
@@ -57,7 +54,6 @@ pipeline {
                 }
             } // end of install dependencies
         stage('Build Docker Image'){
-            agent{label 'docker'}
                 steps {
                     script {
                         if (env.REPO_NAME == 'fe-exam') {
