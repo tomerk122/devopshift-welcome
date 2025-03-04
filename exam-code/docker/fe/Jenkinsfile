@@ -60,10 +60,9 @@ pipeline {
             script {
                 if (env.REPO_NAME == 'fe-exam') {
                     dir('exam-code/docker/fe') {
-                        // sh 'docker build -t ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} .'
-                        // sh 'docker tag ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${REPO_NAME}:latest'
-                        sh 'ls'
-                         sh 'docker --version'
+                        sh 'docker build -t ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} .'
+                        sh 'docker tag ${DOCKER_REGISTRY}/${REPO_NAME}:${IMAGE_TAG} ${DOCKER_REGISTRY}/${REPO_NAME}:latest'
+                      
                         
                     }
                 } else {
